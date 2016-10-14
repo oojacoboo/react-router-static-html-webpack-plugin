@@ -25,6 +25,6 @@
     "q": "^1.4.1",
     "react-router-to-array": "^0.1.2",
     "ts-node": "^1.4.3",
-    "typescript": "^2.0.3"
+    "typescript": "next"
   }
 }
