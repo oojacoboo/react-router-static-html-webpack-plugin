@@ -1,33 +1,33 @@
 var Q = require('q');
 var evaluate = require('eval');
 var path = require('path');
+var reactRouterToArray = require('react-router-to-array');
 
 /**
- * This module waits for webpack to finish compiling, then it looks at a specified entry file (usually bundle.js)
- * It expects the entry file to export a function, which has three arguments
- * 
+ * This module/plugin waits for webpack to finish compiling, then it looks at a
+ * specified bundlePath/entry file (usually bundle.js), look for the export
+ * function, which has three arguments:
+ *
  * module.exports = function(path, props, callback) {}
  *
- * This plugin is constructed with an array of paths
- * Each of these paths is first created, and then the compiled entry file is called upon
- * to generate the html that is desired at the index.html file of each of those paths,
- * the path is passed int othe function as the first parameter
+ * This plugin was forked from the static-site-generator-webpack-plugin by Qiming Weng
+ * which was inspired by Mark Dalgleish's plugin, https://github.com/markdalgleish/static-site-generator-webpack-plugin
  *
- * props is an object that is passed into the function, and defined in the 
- * constructor of the render plugin
+ * License (MIT) https://github.com/qimingweng/static-render-webpack-plugin
  *
- * callback, a function to be called with the return html string
+ * @param {string} bundlePath     The path to the main js bundle generated from webpack
+ * @param {object} reactRoutes    React Router JSX Route object with nested Routes
+ * @param {object} props          object that is passed into the function, and defined in the
+ *                                constructor of the render plugin
+ * @param {function} watchFiles   Callback function to be called with the return html string
+ *
+ * @constructor
  */
-
-function StaticRenderWebpackPlugin(bundlePath, outputRule, props, watchFiles) {
+function StaticRenderWebpackPlugin(bundlePath, reactRoutes, props, watchFiles) {
   this.bundlePath = bundlePath;
 
-  /**
-   * Output paths is an array of strings or objects
-   * Strings are paths
-   * Objects are {path: PathString, output: PathString}
-   */
-  this.outputRules = outputRule;
+  // React Router JSX Routes object, top level being <Route />
+  this.reactRoutes = reactRoutes;
 
   // Initial props is an object passed into the render function
   this.props = props;
@@ -63,7 +63,10 @@ StaticRenderWebpackPlugin.prototype.apply = function(compiler) {
           /* scope: */ undefined, 
           /* noGlobals: */ true);
 
-        var renderPromises = self.outputRules.map(function(outputRule) {
+        // Convert React Router JSX Object to an array of routes
+        var outputRules = reactRouterToArray(self.reactRoutes);
+
+        var renderPromises = outputRules.map(function(outputRule) {
           var renderPath = getInputPath(outputRule);
           var outputFilePath = getOutputPath(outputRule);
 
@@ -125,8 +128,3 @@ var createAssetFromContents = function(contents) {
 }
 
 module.exports = StaticRenderWebpackPlugin;
-
-/**
- * This plugin was inspired by the static-site-generator-webpack-plugin by Mark Dalgleish
- * License (MIT) https://github.com/markdalgleish/static-site-generator-webpack-plugin
- */
