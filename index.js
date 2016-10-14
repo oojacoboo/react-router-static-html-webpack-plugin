@@ -1,3 +1,5 @@
+//var fs = require('fs');
+
 var Q = require('q');
 var evaluate = require('eval');
 var path = require('path');
@@ -15,25 +17,19 @@ var reactRouterToArray = require('react-router-to-array');
  *
  * License (MIT) https://github.com/qimingweng/static-render-webpack-plugin
  *
- * @param {string} bundlePath     The path to the main js bundle generated from webpack
- * @param {object} reactRoutes    React Router JSX Route object with nested Routes
- * @param {object} props          object that is passed into the function, and defined in the
- *                                constructor of the render plugin
- * @param {function} watchFiles   Callback function to be called with the return html string
- *
+ * @param {string} rootPath         The absolute root path of the project
+ * @param {string} bundlePath       The path to the main js bundle generated from webpack
+ * @param {object} reactRoutes      Path to the React Router JSX Routes
+ * @param {object} [props={}]       Initial props is an object passed into the render function
+ * @param {array} [watchFiles=[]]   An array of file paths to keep an eye on for changes
  * @constructor
  */
-function StaticRenderWebpackPlugin(bundlePath, reactRoutes, props, watchFiles) {
+function StaticRenderWebpackPlugin(rootPath, bundlePath, reactRoutesPath, props, watchFiles) {
+  this.rootPath = rootPath
   this.bundlePath = bundlePath;
-
-  // React Router JSX Routes object, top level being <Route />
-  this.reactRoutes = reactRoutes;
-
-  // Initial props is an object passed into the render function
-  this.props = props;
-
-  // An array of file paths to keep an eye on for changes
-  this.watchFiles = watchFiles;
+  this.reactRoutesPath = reactRoutesPath;
+  this.props = props || {};
+  this.watchFiles = watchFiles || [];
 }
 
 StaticRenderWebpackPlugin.prototype.apply = function(compiler) {
@@ -47,33 +43,59 @@ StaticRenderWebpackPlugin.prototype.apply = function(compiler) {
       });
     }
 
+    require('ts-node').register({
+      project: self.rootPath,
+      ignoreWarnings: [],
+      disableWarnings: false,
+      compilerOptions: {
+        rootDir: self.rootPath
+      },
+      fast: true,
+      lazy: true
+    });
+
     var sourceAsset = compiler.assets[self.bundlePath];
+
+//    require.extensions['.png'] = function(){};
+//    require.extensions['.scss'] = function(){};
+//    require.extensions['.gif'] = function(){};
+//    require.extensions['.jpg'] = function(){};
+//    require.extensions['.jpeg'] = function(){};
+
+    var Routing = require(self.reactRoutesPath);
+    console.log(Routing.default);
+
+    var outputRules = reactRouterToArray(Routing.default);
 
     if (sourceAsset) {
       try {
-        var source = sourceAsset.source(); // The string content of the bundle
+        var source = sourceAsset.source(); //string content of the bundle
+//        var routes = []; //string content of Routes overridden below
+//        fs.readFile(self.reactRoutesPath, 'utf8', function(err, data) {
+//          if(err) {
+//            compiler.errors.push(err);
+//          }
+//
+//          var routes = data;
+//          console.log(routes);
+//        });
 
-        // The source file is expected to return a module function by default
-        // This function takes two parameters, a local and a callback
+        //the source file is expected to return a module function by default
+        //this function takes two parameters, a local and a callback
 
-        // Using evaluate to retrieve the exported function from the source file
-        var render = evaluate(
-          /* source: */ source, 
-          /* filename: */ self.bundlePath, 
-          /* scope: */ undefined, 
-          /* noGlobals: */ true);
-
-        // Convert React Router JSX Object to an array of routes
-        var outputRules = reactRouterToArray(self.reactRoutes);
+        //using evaluate to retrieve the exported function from the source/routes files
+        //https://github.com/pierrec/node-eval
+        var render = evaluate(source, self.bundlePath, undefined, true);
+//        var outputRules = reactRouterToArray(
+//          evaluate(routes, self.bundlePath, undefined, true)
+//        );
 
         var renderPromises = outputRules.map(function(outputRule) {
           var renderPath = getInputPath(outputRule);
           var outputFilePath = getOutputPath(outputRule);
 
           return Q.Promise(function(resolve) {
-            /**
-             * Props is either an object or a function which returns a value
-             */
+            //props is either an object or a function which returns a value
             var props = self.props;
 
             if (typeof props == 'function') {
@@ -96,8 +118,8 @@ StaticRenderWebpackPlugin.prototype.apply = function(compiler) {
           done();
         });
       } catch (err) {
-        // Catch errors here and print them in webpack's error handler, without stopping webpack-dev-server
-        compiler.errors.push(err);
+        //catch errors here and print them in webpack's error handler, without stopping webpack-dev-server
+        compiler.errors.push(err.stack)
         done();
       }
     } else {
