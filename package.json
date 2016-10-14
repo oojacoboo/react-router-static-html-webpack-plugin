@@ -1,25 +1,28 @@
 {
-  "name": "static-render-webpack-plugin",
-  "version": "0.1.2",
-  "description": "Generates a series of static routes for a website, given an array of routes",
+  "name": "react-router-static-html-webpack-plugin",
+  "version": "0.1.0",
+  "description": "Generates a series of static routes for a website from a React router route configuration",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/qimingweng/static-render-webpack-plugin"
+    "url": "https://github.com/oojacoboo/static-render-webpack-plugin"
   },
   "keyword": [
     "webpack",
     "static",
     "render",
-    "html"
+    "html",
+    "react",
+    "react-router"
   ],
-  "author": "Qiming Weng",
+  "author": "Jacob Thomason",
   "license": "MIT",
   "dependencies": {
     "eval": "^0.1.0",
-    "q": "^1.4.1"
+    "q": "^1.4.1",
+    "react-router-to-array": "^0.1.2"
   }
 }
