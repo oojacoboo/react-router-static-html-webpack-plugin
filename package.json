@@ -1,14 +1,14 @@
 {
-  "name": "react-router-static-html-webpack-plugin",
+  "name": "typescript-react-router-static-html-webpack-plugin",
   "version": "0.1.0",
-  "description": "Generates a series of static routes for a website from a React router route configuration",
+  "description": "Generates a series of static routes for a website from a React Router route configuration, supports Typescript",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oojacoboo/react-router-static-html-webpack-plugin"
+    "url": "https://github.com/oojacoboo/typescript-react-router-static-html-webpack-plugin"
   },
   "keyword": [
     "webpack",
@@ -16,7 +16,10 @@
     "render",
     "html",
     "react",
-    "react-router"
+    "react-router",
+    "typescript",
+    "es6",
+    "es2015"
   ],
   "author": "Jacob Thomason",
   "license": "MIT",
