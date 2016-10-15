@@ -1,6 +1,6 @@
 # Typescript and React Router static HTML Webpack plugin
 
-[![npm](https://img.shields.io/npm/v/static-render-webpack-plugin.svg?style=flat-square)](https://www.npmjs.com/package/static-render-webpack-plugin)
+[![npm](https://img.shields.io/npm/v/static-render-webpack-plugin.svg?style=flat-square)](https://www.npmjs.com/package/typescript-react-router-static-html-webpack-plugin)
 
 ***The following is to be updated.  This plugin is forked from the following.  
 However, Typescript support has been added, as well as being able to generate 
