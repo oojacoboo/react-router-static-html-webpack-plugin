@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oojacoboo/typescript-react-router-static-html-webpack-plugin"
+    "url": "git+https://github.com/oojacoboo/typescript-react-router-static-html-webpack-plugin.git"
   },
   "keywords": [
     "webpack",
@@ -25,9 +25,15 @@
   "license": "MIT",
   "dependencies": {
     "eval": "^0.1.0",
+    "path": "^0.12.7",
     "q": "^1.4.1",
     "react-router-to-array": "^0.1.2",
     "ts-node": "^1.5.2",
     "typescript": "^2.1.0-dev"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/oojacoboo/typescript-react-router-static-html-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/oojacoboo/typescript-react-router-static-html-webpack-plugin#readme",
+  "devDependencies": {}
 }
