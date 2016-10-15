@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://github.com/oojacoboo/typescript-react-router-static-html-webpack-plugin"
   },
-  "keyword": [
+  "keywords": [
     "webpack",
     "static",
     "render",
