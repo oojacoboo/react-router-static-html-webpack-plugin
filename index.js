@@ -1,3 +1,4 @@
+var TSNode = require('ts-node');
 var Q = require('q');
 var evaluate = require('eval');
 var path = require('path');
@@ -41,7 +42,7 @@ StaticRenderWebpackPlugin.prototype.apply = function(compiler) {
       });
     }
 
-    require('ts-node').register({
+    TSNode.register({
       ignoreWarnings: [],
       disableWarnings: false,
       fast: true,
