@@ -1,6 +1,6 @@
 # Typescript and React Router static HTML Webpack plugin
 
-[![npm](https://img.shields.io/npm/v/typescript-react-router-static-html-webpack-plugin.svg?style=flat&maxAge=2592000)](https://www.npmjs.com/package/typescript-react-router-static-html-webpack-plugin)
+[![npm](https://img.shields.io/npm/v/typescript-react-router-static-html-webpack-plugin.svg?style=flat&maxAge=3600)](https://www.npmjs.com/package/typescript-react-router-static-html-webpack-plugin)
 
 *This plugin will generate static html from your React Router configuration to allow 
 for only static HTML sites, or universal/isomorphic sites.  It supports Typescript
