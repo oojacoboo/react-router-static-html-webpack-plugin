@@ -6,7 +6,7 @@
 for only static HTML sites, or universal/isomorphic sites.  It supports Typescript
 or ES2015+ javascript through the Typescript compiler.*
 
-*Credit given to the [https://github.com/qimingweng/static-render-webpack-plugin](static-render-webpack-plugin)
+*Credit given to the [static-render-webpack-plugin](https://github.com/qimingweng/static-render-webpack-plugin)
 for the starting point for this plugin.*
 
 ## Getting Started
@@ -126,7 +126,7 @@ $ webpack --progress --display-error-details               #outputs the HTML to 
 $ webpack-dev-server --progress --display-error-details    #runs a 'hot' version through node 
 ```
 *For more information on customizing your `webpack-dev-server`, see the 
-[https://webpack.github.io/docs/webpack-dev-server.html](Webpack docs).*
+[Webpack docs](https://webpack.github.io/docs/webpack-dev-server.html).*
 
 The above commands should output the following HTML files:
 ```
@@ -177,6 +177,6 @@ If props is a function, the function is executed (with no parameters) every time
 You can define an array of paths to files that you want the compiler to add to its dependencies. This way, when running webpack in watch mode, or webpack-dev-server, the files which are not in the javascript dependency tree will also be watched and can cause recompilation.
 
 
-# Using Static Render with React Hot Loader
+## Using Static Render with React Hot Loader
 
 Yes! This is possible. Look at this boilerplate project to see how: [static-render-react-hot](https://github.com/qimingweng/static-render-react-hot)
