@@ -36,7 +36,7 @@ TypescriptReactRouterStaticHTMLWebpackPlugin.prototype.apply = function(compiler
 
   compiler.plugin('after-compile', function(compiler, done) {
     //keep an eye on these file paths, and recompile in watch mode if they change
-    if(Array.isArray(self.watchFiles)) {
+    if (Array.isArray(self.watchFiles)) {
       self.watchFiles.forEach(function(src) {
         compiler.fileDependencies.push(src);
       });
@@ -59,7 +59,7 @@ TypescriptReactRouterStaticHTMLWebpackPlugin.prototype.apply = function(compiler
     var Routing = require(self.reactRoutesPath);
     var outputRules = reactRouterToArray(Routing.default);
 
-    if(sourceAsset) {
+    if (sourceAsset) {
       try {
         var source = sourceAsset.source(); //string content of the bundle
 
@@ -78,7 +78,7 @@ TypescriptReactRouterStaticHTMLWebpackPlugin.prototype.apply = function(compiler
             //props is either an object or a function which returns a value
             var props = self.props;
 
-            if(typeof props == 'function') {
+            if (typeof props == 'function') {
               props = props();
             }
 
@@ -97,7 +97,7 @@ TypescriptReactRouterStaticHTMLWebpackPlugin.prototype.apply = function(compiler
         Q.all(renderPromises).then(function() {
           done();
         });
-      } catch(err) {
+      } catch (err) {
         //catch errors here and print them in webpack's error handler, without stopping webpack-dev-server
         compiler.errors.push(err.stack)
         done();
@@ -109,13 +109,13 @@ TypescriptReactRouterStaticHTMLWebpackPlugin.prototype.apply = function(compiler
 }
 
 var getInputPath = function(outputRule) {
-  if(typeof outputRule == 'string') return outputRule;
-  if(typeof outputRule == 'object') return outputRule.path;
+  if (typeof outputRule == 'string') return outputRule;
+  if (typeof outputRule == 'object') return outputRule.path;
 }
 
 var getOutputPath = function(outputRule) {
-  if(typeof outputRule == 'string') return path.join(outputRule, '/index.html');
-  if(typeof outputRule == 'object') return outputRule.output;
+  if (typeof outputRule == 'string') return path.join(outputRule, '/index.html');
+  if (typeof outputRule == 'object') return outputRule.output;
 }
 
 var createAssetFromContents = function(contents) {
