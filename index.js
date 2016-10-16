@@ -23,7 +23,7 @@ var reactRouterToArray = require('react-router-to-array');
  * @param {Array} [watchFiles=[]]         An array of file paths to keep an eye on for changes
  * @constructor
  */
-function StaticRenderWebpackPlugin(bundlePath, reactRoutesPath, ignoreExtensions, props, watchFiles) {
+function TypescriptReactRouterStaticHTMLWebpackPlugin(bundlePath, reactRoutesPath, ignoreExtensions, props, watchFiles) {
   this.bundlePath = bundlePath;
   this.reactRoutesPath = reactRoutesPath;
   this.ignoreExtensions = ignoreExtensions || [];
@@ -31,7 +31,7 @@ function StaticRenderWebpackPlugin(bundlePath, reactRoutesPath, ignoreExtensions
   this.watchFiles = watchFiles || [];
 }
 
-StaticRenderWebpackPlugin.prototype.apply = function(compiler) {
+TypescriptReactRouterStaticHTMLWebpackPlugin.prototype.apply = function(compiler) {
   var self = this;
 
   compiler.plugin('after-compile', function(compiler, done) {
@@ -129,4 +129,4 @@ var createAssetFromContents = function(contents) {
   }
 }
 
-module.exports = StaticRenderWebpackPlugin;
+module.exports = TypescriptReactRouterStaticHTMLWebpackPlugin;
