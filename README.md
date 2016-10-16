@@ -91,7 +91,7 @@ const StaticHTMLPlugin = require('typescript-react-router-static-html-webpack-pl
 
 module.exports = {
   target: 'node',
-  entry: 'src/index.tsx'
+  entry: 'src/index.tsx',
   resolve: {
     extensions: [ '', '.js', '.ts', '.tsx', '.scss', '.css' ],
   },
