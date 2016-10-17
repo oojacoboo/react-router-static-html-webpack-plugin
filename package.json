@@ -1,6 +1,6 @@
 {
   "name": "typescript-react-router-static-html-webpack-plugin",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Generates a series of static routes for a website from a React Router route configuration, supports Typescript",
   "main": "index.js",
   "scripts": {
