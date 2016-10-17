@@ -29,7 +29,7 @@
     "q": "^1.4.1",
     "react-router-to-array": "^0.1.2",
     "ts-node": "^1.5.2",
-    "typescript": "^2.1.0-dev"
+    "typescript": "^2.1.0-dev.20161015"
   },
   "bugs": {
     "url": "https://github.com/oojacoboo/typescript-react-router-static-html-webpack-plugin/issues"
