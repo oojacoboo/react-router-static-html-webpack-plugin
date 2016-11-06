@@ -19,11 +19,12 @@ var reactRouterToArray = require('react-router-to-array');
  * @param {String} bundlePath             The path to the main js bundle generated from webpack
  * @param {Object} reactRoutesPath        Path to the React Router JSX Routes
  * @param {Array} [ignoreExtensions=[]]   Extensions to ignore and not try and compile
+ * @param {String} fourOhFourRoute        Route of the 404 file/path
  * @param {Object} [props={}]             Initial props is an object passed into the render function
  * @param {Array} [watchFiles=[]]         An array of file paths to keep an eye on for changes
  * @constructor
  */
-function TypescriptReactRouterStaticHTMLWebpackPlugin(bundlePath, reactRoutesPath, ignoreExtensions, props, watchFiles) {
+function TypescriptReactRouterStaticHTMLWebpackPlugin(bundlePath, reactRoutesPath, ignoreExtensions, fourOhFourRoute, props, watchFiles) {
   this.bundlePath = bundlePath;
   this.reactRoutesPath = reactRoutesPath;
   this.ignoreExtensions = ignoreExtensions || [];
@@ -58,6 +59,9 @@ TypescriptReactRouterStaticHTMLWebpackPlugin.prototype.apply = function(compiler
 
     var Routing = require(self.reactRoutesPath);
     var outputRules = reactRouterToArray(Routing.default);
+
+    //add 404 route
+    outputRules.push({ path: fourOhFourRoute, output: fourOhFourRoute });
 
     if (sourceAsset) {
       try {
