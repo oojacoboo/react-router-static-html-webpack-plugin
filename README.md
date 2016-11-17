@@ -168,6 +168,15 @@ An array of extensions to be excluded from being processed and compiling within 
 ['.png', '.jpg', '.jpeg', '.gif', '.css', '.scss']
 ```
 
+#### `pathMapping?: object[]`
+An array of objects with path mapping for rewriting urls
+
+```javascript
+[
+  { path: '/four-oh-four', output: '404.html' },
+]
+```
+
 #### `props?: any`
 This property is passed to your javascript bundle as the 2nd parameter in the exported function. It can be anything.
 
