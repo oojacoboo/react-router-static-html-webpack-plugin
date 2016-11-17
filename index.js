@@ -19,14 +19,16 @@ var reactRouterToArray = require('react-router-to-array');
  * @param {String} bundlePath             The path to the main js bundle generated from webpack
  * @param {Object} reactRoutesPath        Path to the React Router JSX Routes
  * @param {Array} [ignoreExtensions=[]]   Extensions to ignore and not try and compile
+ * @param {Array} [pathMapping=[]]        Mapping for paths that need to be rewritten
  * @param {Object} [props={}]             Initial props is an object passed into the render function
  * @param {Array} [watchFiles=[]]         An array of file paths to keep an eye on for changes
  * @constructor
  */
-function TypescriptReactRouterStaticHTMLWebpackPlugin(bundlePath, reactRoutesPath, ignoreExtensions, props, watchFiles) {
+function TypescriptReactRouterStaticHTMLWebpackPlugin(bundlePath, reactRoutesPath, ignoreExtensions, pathMapping, props, watchFiles) {
   this.bundlePath = bundlePath;
   this.reactRoutesPath = reactRoutesPath;
   this.ignoreExtensions = ignoreExtensions || [];
+  this.pathMapping = pathMapping || [];
   this.props = props || {};
   this.watchFiles = watchFiles || [];
 }
@@ -58,6 +60,17 @@ TypescriptReactRouterStaticHTMLWebpackPlugin.prototype.apply = function(compiler
 
     var Routing = require(self.reactRoutesPath);
     var outputRules = reactRouterToArray(Routing.default);
+
+    //remove any custom path mapping that matches routes already in the routing array
+    self.pathMapping.forEach(function(pathMap) {
+      var index = outputRules.indexOf(pathMap.path);
+      if(index > -1) {
+        outputRules.splice(index, 1);
+      }
+    });
+
+    //now just append our custom mappings
+    outputRules = outputRules.concat(self.pathMapping);
 
     if (sourceAsset) {
       try {
